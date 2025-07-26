@@ -1,5 +1,6 @@
 import random
 
+import ms_toollib as mst
 from django.urls import reverse
 
 from captcha.conf import settings
@@ -102,6 +103,23 @@ def random_letter_color_challenge(idx, plaintext_captcha):
 
     # Format the color as a hex string
     return f"#{channels[0]:02X}{channels[1]:02X}{channels[2]:02X}"
+
+
+def _ms_char_for_square(square):
+    if square == -1:
+        return "#"
+    if square == 0:
+        return "☐"
+    return str(square)
+
+def minesweeper_bbbv():
+    board = mst.laymine(6, 6, 6, 0, 0)
+    bbbv = mst.Board(board).bbbv
+    board_str = "\n".join([
+        "".join([_ms_char_for_square(square) for square in row])
+        for row in board
+    ])
+    return (board_str, str(bbbv))
 
 
 def post_smooth(image):
