@@ -74,6 +74,7 @@ def captcha_image(request, key, scale=1):
 
     image = makeimg(size)
     xpos = 2
+    ypos = 0
 
     charlist = []
     for char in text:
@@ -83,6 +84,10 @@ def captcha_image(request, key, scale=1):
             charlist.append(char)
 
     for index, char in enumerate(charlist):
+        if char == "\n":
+            ypos += charimage.size[1]
+            xpos = 2
+            continue
         fgimage = Image.new(
             "RGB", size, settings.get_letter_color(index, "".join(charlist))
         )
@@ -102,25 +107,20 @@ def captcha_image(request, key, scale=1):
             charimage,
             (
                 xpos,
-                DISTANCE_FROM_TOP,
-                xpos + charimage.size[0],
-                DISTANCE_FROM_TOP + charimage.size[1],
+                ypos,
+                #  DISTANCE_FROM_TOP,
+                #  xpos + charimage.size[0],
+                #  DISTANCE_FROM_TOP + charimage.size[1] + 14*ypos,
             ),
         )
         size = maskimage.size
         image = Image.composite(fgimage, image, maskimage)
-        xpos = xpos + 2 + charimage.size[0]
+        xpos = xpos + charimage.size[0]
 
     if settings.CAPTCHA_IMAGE_SIZE:
         # centering captcha on the image
         tmpimg = makeimg(size)
-        tmpimg.paste(
-            image,
-            (
-                int((size[0] - xpos) / 2),
-                int((size[1] - charimage.size[1]) / 2 - DISTANCE_FROM_TOP),
-            ),
-        )
+        tmpimg.paste(image)
         image = tmpimg.crop((0, 0, size[0], size[1]))
     else:
         image = image.crop((0, 0, xpos + 1, size[1]))
