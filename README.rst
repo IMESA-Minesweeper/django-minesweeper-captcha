@@ -1,4 +1,19 @@
 *********************
+Django Minesweeper Captcha
+*********************
+
+A fork of Django Simple Captcha that can show a minesweeper board and expect its 3bv.
+
+Not ready for public consumption, might polish later.
+
+Rest of readme is from original project.
+
+Missing:
+- multiline support that doesn't break everything else
+- ms_toollib dependency
+- name change for app
+
+*********************
 Django Simple Captcha
 *********************
 
