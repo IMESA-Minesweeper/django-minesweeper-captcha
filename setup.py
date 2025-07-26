@@ -43,13 +43,13 @@ with open("README.rst") as readme:
     long_description = readme.read()
 
 setup(
-    name="django-simple-captcha",
+    name="django-minesweeper-captcha",
     version=get_captcha_version(),
-    description="A very simple, yet powerful, Django captcha application",
+    description="A very simple, yet powerful, Django captcha application (now with some minesweeper)",
     long_description=long_description,
-    author="Marco Bonetti",
-    author_email="mbonetti@gmail.com",
-    url="https://github.com/mbi/django-simple-captcha",
+    author="Marco Bonetti/IMESA",
+    author_email="mbonetti@gmail.com/contact@imesa.org",
+    url="https://github.com/IMESA-Minesweeper/django-minesweeper-captcha",
     license="MIT",
     packages=find_packages(exclude=["testproject", "testproject.*"]),
     classifiers=[
